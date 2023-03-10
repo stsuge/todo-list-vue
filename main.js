@@ -19,8 +19,7 @@ var todoStorage = {
 const app = new Vue({
     el: '#app',
     data: {
-        id: 0,
-        todos: []
+        todos: [],
     },
     methods: {
         // ToDo 追加の処理
@@ -38,7 +37,7 @@ const app = new Vue({
                 // というオブジェクトを現在の todos リストへ push
                 // 作業状態「state」はデフォルト「作業中=0」で作成
                 this.todos.push({
-                    id: this.id++,
+                    id: todoStorage.uid++,
                     comment: comment.value,
                     state: 0
                 })
@@ -47,4 +46,19 @@ const app = new Vue({
                 comment.value = ''
             }
     },
+    watch: {
+        // オプションを使う場合はオブジェクト形式にする
+        todos: {
+            // 引数はウォッチしているプロパティの変更後の値
+            handler: function (todos) {
+                todoStorage.save(todos)
+            },
+            // deep オプションでネストしているデータも監視できる
+            deep: true
+        }
+    },
+    created() {
+        // インスタンス作成時に自動的に fetch() する
+        this.todos = todoStorage.fetch()
+    }
 })
