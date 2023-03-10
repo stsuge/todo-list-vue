@@ -26,11 +26,9 @@
                     <td>{{ item.id }}</td>
                     <td>{{ item.comment}}</td>
                     <td class="state">
-                        <!-- 状態変更ボタンのモック -->
                         <button v-on:click="doChangeState(item)">{{ item.state }}</button>
                     </td>
                     <td class="button">
-                        <!-- 削除ボタンのモック -->
                         <button v-on:click="doRemove(item)">削除</button>
                     </td>
                 </tr>
@@ -40,9 +38,7 @@
         <!-- 新規登録フォーム -->
         <h2>新しい作業の追加</h2>
         <form class="add-form" v-on:submit.prevent="doAdd">
-            <!-- コメント入力フォーム -->
             コメント <input type="text" ref="comment">
-            <!-- 追加ボタンのモック -->
             <button type="submit">追加</button>
         </form>
     </div>
