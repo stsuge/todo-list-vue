@@ -10,7 +10,11 @@
 <body>
     <div id="app">
         <!-- 絞り込みラジオボタン -->
-
+        <label v-for="option in options">
+            <input type="radio" v-model="current" v-bind:value="option.value">{{ option.label }}
+        </label>
+        <br />
+        {{ computedTodos.length }} 件を表示中
         <!-- ToDo テーブル -->
         <table>
             <thead>
@@ -22,11 +26,11 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="item in todos" v-bind:key="item.id">
+                <tr v-for="item in computedTodos" v-bind:key="item.id">
                     <td>{{ item.id }}</td>
                     <td>{{ item.comment}}</td>
                     <td class="state">
-                        <button v-on:click="doChangeState(item)">{{ item.state }}</button>
+                        <button v-on:click="doChangeState(item)">{{ labels[item.state] }}</button>
                     </td>
                     <td class="button">
                         <button v-on:click="doRemove(item)">削除</button>

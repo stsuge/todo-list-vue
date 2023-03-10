@@ -19,7 +19,32 @@ var todoStorage = {
 const app = new Vue({
     el: '#app',
     data: {
+        // 状態での絞り込みの選択肢
+        options: [
+            { value: -1, label: 'すべて' },
+            { value: 0, label: '作業中' },
+            { value: 1, label: '完了' }
+        ],
+        // 選択している options の value を記憶するためのデータ
+        // 初期値を「-1」つまり「すべて」にする
+        current: -1,
         todos: [],
+    },
+    computed: {
+        computedTodos: function () {
+            // データ current が -1 ならすべて
+            // それ以外なら current と state が一致するものだけに絞り込む
+            return this.todos.filter(function (el) {
+                return this.current < 0 ? true : this.current === el.state
+            }, this)
+        },
+        labels() {
+            return this.options.reduce(function (a, b) {
+                return Object.assign(a, { [b.value]: b.label })
+            }, {})
+            // キーから見つけやすいように、次のように加工したデータを作成
+            // {0: '作業中', 1: '完了', -1: 'すべて'}
+        }
     },
     methods: {
         // ToDo追加の処理
