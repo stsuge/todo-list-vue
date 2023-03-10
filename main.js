@@ -19,9 +19,15 @@ var todoStorage = {
 const app = new Vue({
     el: '#app',
     data: {
-        // 使用するデータ
+        todos: [
+            {
+                id: 1,
+                comment: 'aaa',
+                state: 0,
+            },
+        ]
     },
     methods: {
         // 使用するメソッド
-    }
+    },
 })
